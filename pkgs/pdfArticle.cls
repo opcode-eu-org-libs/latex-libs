@@ -20,6 +20,9 @@
 % OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 % SOFTWARE.
 
+% Version 1.0 (2019-05-13): first public release
+
+
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{pdfArticle}[2019/05/01 v1.0 simple class for creating PDF documents with LuaLaTeX]
 
