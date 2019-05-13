@@ -1,0 +1,117 @@
+% Copyright (c) 2015-2019 Robert Ryszard Paciorek <rrp@opcode.eu.org>
+% 
+% MIT License
+% 
+% Permission is hereby granted, free of charge, to any person obtaining a copy
+% of this software and associated documentation files (the "Software"), to deal
+% in the Software without restriction, including without limitation the rights
+% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+% copies of the Software, and to permit persons to whom the Software is
+% furnished to do so, subject to the following conditions:
+% 
+% The above copyright notice and this permission notice shall be included in all
+% copies or substantial portions of the Software.
+% 
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+% SOFTWARE.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{styles4lists}
+
+%\RequirePackageWithOptions{enumitem}
+
+% enumerate list 1.a.•
+\newlist{enumI}{enumerate}{3}
+\setlist[enumI,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumI,2]{label=\alph*), ref=\theenumIi.\alph*}
+\setlist[enumI,3]{label=$\bullet$, ref=\theenumIii.??}
+
+% enumerate list 1.1.a.•
+\newlist{enumII}{enumerate}{4}
+\setlist[enumII,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumII,2]{label=\theenumIIi.\arabic*., ref=\theenumIIi.\arabic*}
+\setlist[enumII,3]{label=\alph*), ref=\theenumIIii.\alph*}
+\setlist[enumII,4]{label=$\bullet$, ref=\theenumIIiii.??}
+
+% enumerate list 1.1.1.a.•
+\newlist{enumIII}{enumerate}{5}
+\setlist[enumIII,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumIII,2]{label=\theenumIIIi.\arabic*., ref=\theenumIIIi.\arabic*}
+\setlist[enumIII,3]{label=\theenumIIIii.\arabic*., ref=\theenumIIIii.\arabic*}
+\setlist[enumIII,4]{label=\alph*), ref=\theenumIIIiii.\alph*}
+\setlist[enumIII,5]{label=$\bullet$, ref=\theenumIIIiv.??}
+
+% put formated headers item
+\newcommand{\hitemA}[1]{\Large\bfseries\item #1 \mdseries\normalsize}
+\newcommand{\hitemB}[1]{\large\bfseries\item #1 \mdseries\normalsize}
+\newcommand{\hitemC}[1]{\normalsize\bfseries\item #1 \mdseries}
+\newcommand{\hitemZ}[1]{\normalsize\mdseries\item #1 }
+
+
+%\RequirePackageWithOptions{easylist}
+
+% default config
+\def\initStdList{\NewList(
+	Mark=.,FinalMark=., Space=3pt,Space*=1pt,
+	Hang=true,Align=move,FinalSpace=0.5em,Progressive*=3ex,Margin1=1ex,
+)}
+
+% enumerate list 1.a.•
+\def\initEnumI{\initStdList\ListProperties(
+	Numbers2=l,Hide2=1,FinalMark2={)},Margin2=2ex,
+	Hide3=3,Style3*=$\bullet$ ,
+)}
+
+% enumerate list 1.1.a.•
+\def\initEnumII{\initStdList\ListProperties(
+	Numbers3=l,Hide3=23,FinalMark3={)},Margin3=5ex,
+	Hide4=4,Style4*=$\bullet$ ,
+)}
+
+% enumerate list 1.1.1.a.•
+\def\initEnumIII{\initStdList\ListProperties(
+	Numbers4=l,Hide4=3,FinalMark4={)},Margin4=8ex,
+	Hide5=5,Style5*=$\bullet$ ,
+)}
+
+
+% set one level of headers
+\def\setHeaderI{\ListProperties(
+	Style1=\large\bf
+}
+
+% set two level of headers
+\def\setHeaderI{\ListProperties(
+	Style1=\Large\bf,Style2=\large\bf
+}
+
+
+\def\initTechList{\initStdList\ListProperties(
+	Style1=\Large\bf,Style2=\large\bf,
+	Numbers5=l,Hide5=4,FinalMark5={)},Margin5=12ex,
+	Hide6=6,Style6*=-- ,Margin6=15ex,
+	Hide7=7,Style7*=$\bullet$ ,
+)\xdef\subHeadLevel{3}}
+
+\def\initPointsList{\initStdList\ListProperties(
+	Hide1=1,Style1*=$\bullet$ ,Margin1=2ex,
+	Hide2=2,Style2*=-- ,Margin2=5ex,
+)}
+
+
+% set bold font on selected level
+\def\isHead#1{\ListProperties(Style#1=\bf)}
+\def\isNotHead#1{\ListProperties(Style#1=)}
+
+% put 2 or 3 level item with bold font
+\edef\AmpersandCatcode{\number\catcode`&}\catcode`&=\active
+\def\headItem#1{
+	\ifdefstring{\subHeadLevel}{2}{\isHead{2} &&  #1 \isNotHead{2}}{}
+	\ifdefstring{\subHeadLevel}{3}{\isHead{3} &&& #1 \isNotHead{3}}{}
+}
+\catcode`&=\AmpersandCatcode

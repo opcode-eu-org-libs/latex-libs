@@ -1,0 +1,57 @@
+% Copyright (c) 2019 Robert Ryszard Paciorek <rrp@opcode.eu.org>
+% 
+% MIT License
+% 
+% Permission is hereby granted, free of charge, to any person obtaining a copy
+% of this software and associated documentation files (the "Software"), to deal
+% in the Software without restriction, including without limitation the rights
+% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+% copies of the Software, and to permit persons to whom the Software is
+% furnished to do so, subject to the following conditions:
+% 
+% The above copyright notice and this permission notice shall be included in all
+% copies or substantial portions of the Software.
+% 
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+% SOFTWARE.
+
+
+% before build run:
+%    luaotfload-tool --update -vvvvv --force --formats=otf,ttf,ttc,afm,tfm,pfb
+
+%
+% WARNING: build this consume a lot of memory and can kill your computer !!!
+%
+
+\documentclass{pdfArticle}
+\setlength{\parindent}{0pt} \setlength{\parskip}{5pt}
+
+\usepackage{luacode, luaotfload}
+\begin{document}
+\begin{luacode}
+fontlist=dofile(config.luaotfload.paths.index_path_luc)
+start=0
+packsize=2*256
+for i,v in ipairs(fontlist.mappings) do
+	if i >= start*packsize and i < (start+1)*packsize then
+		if v.fontname then
+			tex.print('{\\bfseries\\fontspec{')
+			tex.print(-2, v.fontname)
+			tex.print('} ABCDRQWXYZ abcdrqwxyz 015679 ĄŚźł} \\hfill')
+			tex.print(v.fontname)
+		elseif v.familyname then
+			tex.print(v.familyname)
+		else
+			tex.print(i)
+		end
+		tex.print('\\par')
+	end
+end
+\end{luacode}
+
+\end{document}

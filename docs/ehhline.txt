@@ -1,0 +1,6 @@
+Package ehhline extend \hhline command with a !{...} token,
+which allows build line with LaTeX command.
+
+Copyright (C) 2015-2019, Robert Ryszard Paciorek <rrp@opcode.eu.org>
+
+This is free software distributed under terms of The MIT License.
