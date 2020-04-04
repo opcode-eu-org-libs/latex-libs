@@ -1,4 +1,4 @@
-% Copyright (c) 2015-2019 Robert Ryszard Paciorek <rrp@opcode.eu.org>
+% Copyright (c) 2015-2020 Robert Ryszard Paciorek <rrp@opcode.eu.org>
 % 
 % MIT License
 % 
@@ -21,6 +21,7 @@
 % SOFTWARE.
 
 % Version 1.0 (2019-05-13): first public release
+% Version 1.1 (2020-04-04): bugfix – now |!{...}| works correctly
 
 
 \NeedsTeXFormat{LaTeX2e}
@@ -33,10 +34,9 @@
 \AtBeginDocument{
   \patchcmd{\HH@loop}{\PackageWarning{hhline}}{%
    \ifx\@tempb!\def\next#1#2{%
-       \gdef\HH@height{\dimen\thr@@}%
-       \if@firstamp\@firstampfalse\else\HH@add{&\omit}\fi
-       \HH@add
-          {#2}%
+       \@tempswafalse\gdef\HH@height{\dimen\thr@@}%
+       \if@firstamp\@firstampfalse\else\HH@add{&\omit}\fi%
+       \HH@add{#2}%
        \HH@let!}\else
    \PackageWarning{hhline}
   }{}{\PackageWarning{ehhline}{Error patch HH@loop}}
