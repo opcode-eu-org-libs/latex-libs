@@ -8,5 +8,5 @@ prepare:
 	(cd build-tempdir; ln -fs ../../pkgs/* .)
 
 %.pdf: %.tex | prepare
-	(cd build-tempdir; ln -fs ../$< .; lualatex $< && lualatex $<)
-	mv build-tempdir/$@ .
+	(cd build-tempdir; ln -fs ../$< .; lualatex $(<F) && lualatex $(<F))
+	mv build-tempdir/$(@F) .

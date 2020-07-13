@@ -1,4 +1,4 @@
-all: ehhline.tgz labels4easylist.tgz pdfArticle.tgz vtable.tgz
+all: ehhline.tgz labels4easylist.tgz pdfArticle.tgz vtable.tgz tikzPackets.tgz
 
 clean:
 	rm -fr build-tempdir *.tgz
