@@ -1,4 +1,4 @@
-% Copyright (c) 2015-2019 Robert Ryszard Paciorek <rrp@opcode.eu.org>
+% Copyright (c) 2015-2021 Robert Ryszard Paciorek <rrp@opcode.eu.org>
 % 
 % MIT License
 % 
@@ -21,10 +21,11 @@
 % SOFTWARE.
 
 % Version 1.0 (2019-05-13): first public release
+% Version 1.1 (2021-02-05): add option mathFont
 
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{pdfArticle}[2019/05/01 v1.0 simple class for creating PDF documents with LuaLaTeX]
+\ProvidesClass{pdfArticle}[2021/02/05 v1.1 simple class for creating PDF documents with LuaLaTeX]
 
 \RequirePackage{kvoptions} % key=value option for class ... use also by hyperref, so zero overhead
 	\SetupKeyvalOptions{family=KVP, prefix=KVP@} % KVP = Key Val Parameters
@@ -50,6 +51,7 @@
 		SlantedFont     = lmmonoslant10regular
 	]                                                  {monoFontFeat}   % features settings for monoFont
 	\DeclareStringOption[Latin Modern Mono Light]      {monoFont}       % document default main mono-space fornt
+	\DeclareStringOption[Latin Modern Math]            {mathFont}       % document default math font
 	
 	% Paper settings
 	\DeclareStringOption[a4paper]    {paperSize}      % paper size
@@ -136,6 +138,7 @@
 \RequirePackage{ragged2e} % \justifying command, justify environment and alternative left, center and right ragged text 
 \RequirePackage{setspace} % set line stretch with \setstretch{} command (it's more powerful way than \linespread{}\selectfont or manualy set \baselineskip)
 \RequirePackage{amsmath,unicode-math} % math with unicode open-type fonts
+	\setmathfont{\KVP@mathFont}
 \RequirePackage{adjustbox} % scale, clip, rotate, etc boxes
 
 \ifKVP@extra
